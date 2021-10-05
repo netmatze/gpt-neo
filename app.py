@@ -1,15 +1,17 @@
 from flask import Flask, request, jsonify
 from transformers import pipeline
+from happytransformer import HappyGeneration
 app = Flask(__name__)
+happy_gen = HappyGeneration("GPT-NEO", "EleutherAI/gpt-neo-125M")
 
 
 @app.route('/ask/', methods=['GET'])
 def generatetext():
     # Retrieve the name from url parameter
     text = request.args.get("text", None)
-    generator = pipeline('text-generation', model='EleutherAI/gpt-neo-125M')
-    result = generator(text, max_lenght=50, do_sample=True, temerature=0.9)
-    return jsonify(result[0]['generated_text'])
+    # result = generator(text, max_lenght=50, do_sample=True, temerature=0.9)
+    result = happy_gen.generate_text("Artificial intelligence will ")
+    return jsonify(result.text])
 
 
 @app.route('/getmsg/', methods=['GET'])
