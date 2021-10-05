@@ -1,5 +1,15 @@
 from flask import Flask, request, jsonify
+from transformers import pipeline
 app = Flask(__name__)
+
+
+@app.route('/ask/', methods=['GET'])
+def generatetext():
+    # Retrieve the name from url parameter
+    text = request.args.get("text", None)
+    generator = pipeline('text-generation', model='EleutherAI/gpt-neo-125M')
+    result = generator(text, max_lenght=50, do_sample=True, temerature=0.9)
+    return jsonify(result)
 
 
 @app.route('/getmsg/', methods=['GET'])
