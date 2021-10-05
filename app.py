@@ -9,7 +9,7 @@ def generatetext():
     text = request.args.get("text", None)
     generator = pipeline('text-generation', model='EleutherAI/gpt-neo-125M')
     result = generator(text, max_lenght=50, do_sample=True, temerature=0.9)
-    return jsonify(result)
+    return jsonify(result[0]['generated_text'])
 
 
 @app.route('/getmsg/', methods=['GET'])
