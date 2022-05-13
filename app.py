@@ -58,7 +58,7 @@ def post_something():
 # A welcome message to test our server
 @app.route('/')
 def index():
-    return "<h1>Welcome Heroku !!</h1>"
+    return "<h1>Welcome Heroku !! - deployed -</h1>"
 
 
 if __name__ == '__main__':
